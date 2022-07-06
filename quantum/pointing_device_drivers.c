@@ -106,8 +106,34 @@ const pointing_device_driver_t pointing_device_driver = {
 #        define CIRQUE_PINNACLE_TOUCH_DEBOUNCE (CIRQUE_PINNACLE_TAPPING_TERM * 8)
 #    endif
 
+const uint8_t ZVALUE_MAP[ROWS_Y][COLS_X] = ZVALUE_MATRIX;
+
+//#ifdef PINNACLE_CHECK_VALID
+void pinnacle_check_valid(pinnacle_data_t * touchData)
+{
+  uint32_t zone_x, zone_y;
+  //eliminate hovering
+  zone_x = touchData->xValue / ZONESCALE;
+  zone_y = touchData->yValue / ZONESCALE;
+  touchData->hovering = !(touchData->zValue > ZVALUE_MAP[zone_y][zone_x]);
+#    ifdef CONSOLE_ENABLE
+  dprintf(touchData->hovering ? "true\n" : "false\n");
+#    endif
+
+}
+//#endif
+
 report_mouse_t cirque_pinnacle_get_report(report_mouse_t mouse_report) {
     pinnacle_data_t touchData = cirque_pinnacle_read_data();
+//#ifdef PINNACLE_CHECK_VALID
+#    ifdef CONSOLE_ENABLE
+        dprintf("checking hover\n");
+#    endif
+
+    touchData.hovering = false;
+    pinnacle_check_valid(&touchData);
+//#else
+//#endif
     static uint16_t x = 0, y = 0, mouse_timer = 0;
     int8_t          report_x = 0, report_y = 0;
     static bool     is_z_down = false;
@@ -126,6 +152,8 @@ report_mouse_t cirque_pinnacle_get_report(report_mouse_t mouse_report) {
         if (!touchData.zValue) {
             if (timer_elapsed(mouse_timer) < CIRQUE_PINNACLE_TAPPING_TERM && mouse_timer != 0) {
                 mouse_report.buttons = pointing_device_handle_buttons(mouse_report.buttons, true, POINTING_DEVICE_BUTTON1);
+                report_x = 0;
+                report_y = 0;
                 pointing_device_set_report(mouse_report);
                 pointing_device_send();
 #    if TAP_CODE_DELAY > 0
@@ -141,9 +169,12 @@ report_mouse_t cirque_pinnacle_get_report(report_mouse_t mouse_report) {
     if (timer_elapsed(mouse_timer) > (CIRQUE_PINNACLE_TOUCH_DEBOUNCE)) {
         mouse_timer = 0;
     }
-    mouse_report.x = report_x;
-    mouse_report.y = report_y;
-
+    if (!touchData.hovering) {
+        mouse_report.x = report_x;
+        mouse_report.y = report_y;
+    } else {
+        dprintf("throwing away hover data");
+    }
     return mouse_report;
 }
 

@@ -24,6 +24,16 @@
 #define FEE_PAGE_BASE_ADDRESS 0x08008000
 #endif
 
+#    define ZVALUE_MATRIX {        \
+    {0, 0,  0,  0,  0,  0,  0, 0}, \
+    {0, 5,  8,  10, 10, 8,  5, 0}, \
+    {0, 8,  10, 20, 20, 10, 8, 0}, \
+    {0, 8,  10, 20, 20, 10, 8, 0}, \
+    {0, 5,  8,  10, 10, 8,  5, 0}, \
+    {0, 0,  0,  0,  0,  0,  0, 0}  \
+    }
+
+
 /* Define custom font */
 #define OLED_FONT_H "keyboards/mechwild/puckbuddy/glcdfont.c"
 

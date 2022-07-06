@@ -18,15 +18,10 @@
 #endif
 
 keyboard_config_t keyboard_config;
+
+#ifdef POINTING_DEVICE_ENABLE
 uint16_t          dpi_array[] = GLIDEPOINT_DPI_OPTIONS;
 #define DPI_OPTION_SIZE (sizeof(dpi_array) / sizeof(uint16_t))
-
-void board_init(void) {
-    // B9 is configured as I2C1_SDA in the board file; that function must be
-    // disabled before using B7 as I2C1_SDA.
-    setPinInputHigh(B9);
-}
-
 static void eeprom_settings_save(void) {
 #ifdef QMK_SETTINGS
     for (size_t i = 0; i < sizeof(qmk_settings_t); ++i) {
@@ -39,6 +34,15 @@ static void eeprom_settings_save(void) {
 #endif
     eeconfig_update_kb(keyboard_config.raw);
 }
+
+#endif
+
+void board_init(void) {
+    // B9 is configured as I2C1_SDA in the board file; that function must be
+    // disabled before using B7 as I2C1_SDA.
+    setPinInputHigh(B9);
+}
+
 
 #if (defined(QMK_SETTINGS) && defined(DYNAMIC_TAPPING_TERM_ENABLE))
 report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {       // here to sync settings from VIAL GUI for tap term to our eeprom config
