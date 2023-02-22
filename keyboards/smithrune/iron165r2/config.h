@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
+<<<<<<< HEAD
 /* USB Device descriptor parameter */
 #define VENDOR_ID 0x8384 // SR for Smith and RUne
 #define PRODUCT_ID 0x1652 // 165 rev 2
@@ -26,6 +27,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MANUFACTURER SmithRune
 #define PRODUCT Iron165R2
 
+=======
+>>>>>>> f71ee6074f1021dea83d0ee9931f08d60f38c806
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
 

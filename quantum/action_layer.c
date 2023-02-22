@@ -10,6 +10,15 @@
 #    include "nodebug.h"
 #endif
 
+<<<<<<< HEAD
+=======
+#include "keyboard.h"
+#include "keymap.h"
+#include "action.h"
+#include "util.h"
+#include "action_layer.h"
+
+>>>>>>> f71ee6074f1021dea83d0ee9931f08d60f38c806
 #ifdef VIAL_ENABLE
 #include "vial.h"
 #endif
@@ -233,6 +242,7 @@ uint8_t source_layers_cache[(MATRIX_ROWS * MATRIX_COLS + 7) / 8][MAX_LAYER_BITS]
  *
  * Updates the cached keys when changing layers
  */
+<<<<<<< HEAD
 void update_source_layers_cache(keypos_t key, uint8_t layer) {
 #ifdef VIAL_ENABLE
     if (key.row == VIAL_MATRIX_MAGIC) return;
@@ -242,9 +252,65 @@ void update_source_layers_cache(keypos_t key, uint8_t layer) {
     const uint8_t storage_row = key_number / 8;
     const uint8_t storage_bit = key_number % 8;
 
+=======
+void update_source_layers_cache_impl(uint8_t layer, uint16_t entry_number, uint8_t cache[][MAX_LAYER_BITS]) {
+    const uint16_t storage_idx = entry_number / (CHAR_BIT);
+    const uint8_t  storage_bit = entry_number % (CHAR_BIT);
+>>>>>>> f71ee6074f1021dea83d0ee9931f08d60f38c806
     for (uint8_t bit_number = 0; bit_number < MAX_LAYER_BITS; bit_number++) {
         source_layers_cache[storage_row][bit_number] ^= (-((layer & (1U << bit_number)) != 0) ^ source_layers_cache[storage_row][bit_number]) & (1U << storage_bit);
     }
+}
+
+/** \brief read source layers cache
+ *
+ * reads the cached keys stored when the layer was changed
+ */
+<<<<<<< HEAD
+uint8_t read_source_layers_cache(keypos_t key) {
+#ifdef VIAL_ENABLE
+    if (key.row == VIAL_MATRIX_MAGIC) return 0;
+#endif
+
+    const uint8_t key_number  = key.col + (key.row * MATRIX_COLS);
+    const uint8_t storage_row = key_number / 8;
+    const uint8_t storage_bit = key_number % 8;
+    uint8_t       layer       = 0;
+=======
+uint8_t read_source_layers_cache_impl(uint16_t entry_number, uint8_t cache[][MAX_LAYER_BITS]) {
+    const uint16_t storage_idx = entry_number / (CHAR_BIT);
+    const uint8_t  storage_bit = entry_number % (CHAR_BIT);
+    uint8_t        layer       = 0;
+>>>>>>> f71ee6074f1021dea83d0ee9931f08d60f38c806
+
+    for (uint8_t bit_number = 0; bit_number < MAX_LAYER_BITS; bit_number++) {
+        layer |= ((source_layers_cache[storage_row][bit_number] & (1U << storage_bit)) != 0) << bit_number;
+    }
+
+    return layer;
+}
+<<<<<<< HEAD
+=======
+
+/** \brief update encoder source layers cache
+ *
+ * Updates the cached encoders when changing layers
+ */
+void update_source_layers_cache(keypos_t key, uint8_t layer) {
+#ifdef VIAL_ENABLE
+    if (key.row == VIAL_MATRIX_MAGIC) return;
+#endif
+
+    if (key.row < MATRIX_ROWS && key.col < MATRIX_COLS) {
+        const uint16_t entry_number = (uint16_t)(key.row * MATRIX_COLS) + key.col;
+        update_source_layers_cache_impl(layer, entry_number, source_layers_cache);
+    }
+#    ifdef ENCODER_MAP_ENABLE
+    else if (key.row == KEYLOC_ENCODER_CW || key.row == KEYLOC_ENCODER_CCW) {
+        const uint16_t entry_number = key.col;
+        update_source_layers_cache_impl(layer, entry_number, encoder_source_layers_cache);
+    }
+#    endif // ENCODER_MAP_ENABLE
 }
 
 /** \brief read source layers cache
@@ -256,17 +322,19 @@ uint8_t read_source_layers_cache(keypos_t key) {
     if (key.row == VIAL_MATRIX_MAGIC) return 0;
 #endif
 
-    const uint8_t key_number  = key.col + (key.row * MATRIX_COLS);
-    const uint8_t storage_row = key_number / 8;
-    const uint8_t storage_bit = key_number % 8;
-    uint8_t       layer       = 0;
-
-    for (uint8_t bit_number = 0; bit_number < MAX_LAYER_BITS; bit_number++) {
-        layer |= ((source_layers_cache[storage_row][bit_number] & (1U << storage_bit)) != 0) << bit_number;
+    if (key.row < MATRIX_ROWS && key.col < MATRIX_COLS) {
+        const uint16_t entry_number = (uint16_t)(key.row * MATRIX_COLS) + key.col;
+        return read_source_layers_cache_impl(entry_number, source_layers_cache);
     }
-
-    return layer;
+#    ifdef ENCODER_MAP_ENABLE
+    else if (key.row == KEYLOC_ENCODER_CW || key.row == KEYLOC_ENCODER_CCW) {
+        const uint16_t entry_number = key.col;
+        return read_source_layers_cache_impl(entry_number, encoder_source_layers_cache);
+    }
+#    endif // ENCODER_MAP_ENABLE
+    return 0;
 }
+>>>>>>> f71ee6074f1021dea83d0ee9931f08d60f38c806
 #endif
 
 /** \brief Store or get action (FIXME: Needs better summary)

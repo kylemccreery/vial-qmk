@@ -16,12 +16,21 @@ Flashing example for this keyboard:
 
     make mechwild/puckbuddy:default:flash
 
+<<<<<<< HEAD
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
+=======
+>>>>>>> f71ee6074f1021dea83d0ee9931f08d60f38c806
 ## Bootloader
 
 Enter the bootloader in 3 ways:
 
 * **Bootmagic reset**: Hold down the key at (0,0) in the matrix (assigned to the top left key) and plug in the keyboard while holding it.
 * **Physical reset button**: Press and hold the boot0 button on the blackpill, tap  and release the nrst button on the blackpill, then release the boot0 button.
+<<<<<<< HEAD
 * **Keycode in layout**: Press the key mapped to `RESET` if it is available. By default this is the top right key on layer 1.
+=======
+* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available. By default this is the top right key on layer 1.
+
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+>>>>>>> f71ee6074f1021dea83d0ee9931f08d60f38c806

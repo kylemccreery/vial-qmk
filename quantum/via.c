@@ -42,6 +42,13 @@
 #    define VIA_QMK_RGBLIGHT_ENABLE
 #endif
 
+<<<<<<< HEAD
+=======
+#if defined(RGB_MATRIX_ENABLE) && !defined(VIA_QMK_RGBLIGHT_ENABLE) && !defined(VIA_CUSTOM_LIGHTING_ENABLE) && !defined(VIALRGB_ENABLE)
+#    define VIA_QMK_RGB_MATRIX_ENABLE
+#endif
+
+>>>>>>> f71ee6074f1021dea83d0ee9931f08d60f38c806
 #include "quantum.h"
 
 #include "via.h"
@@ -173,7 +180,7 @@ void via_set_layout_options(uint32_t value) {
 bool process_record_via(uint16_t keycode, keyrecord_t *record) {
     // Handle macros
     if (record->event.pressed) {
-        if (keycode >= MACRO00 && keycode <= MACRO15) {
+        if (keycode >= MACRO00 && keycode <= MACRO00 + DYNAMIC_KEYMAP_MACRO_COUNT - 1) {
             uint8_t id = keycode - MACRO00;
             dynamic_keymap_macro_send(id);
             return false;
@@ -331,11 +338,21 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
 #endif
 #if defined(VIALRGB_ENABLE)
             vialrgb_set_value(data, length);
+<<<<<<< HEAD
+=======
+#endif
+#if defined(VIA_QMK_RGB_MATRIX_ENABLE)
+            via_qmk_rgb_matrix_set_value(command_data);
+>>>>>>> f71ee6074f1021dea83d0ee9931f08d60f38c806
 #endif
 #if defined(VIA_CUSTOM_LIGHTING_ENABLE)
             raw_hid_receive_kb(data, length);
 #endif
+<<<<<<< HEAD
 #if !defined(VIA_QMK_BACKLIGHT_ENABLE) && !defined(VIA_QMK_RGBLIGHT_ENABLE) && !defined(VIALRGB_ENABLE) && !defined(VIA_CUSTOM_LIGHTING_ENABLE)
+=======
+#if !defined(VIA_QMK_BACKLIGHT_ENABLE) && !defined(VIA_QMK_RGBLIGHT_ENABLE) && !defined(VIALRGB_ENABLE) && !defined(VIA_CUSTOM_LIGHTING_ENABLE) && !defined(VIA_QMK_RGB_MATRIX_ENABLE)
+>>>>>>> f71ee6074f1021dea83d0ee9931f08d60f38c806
             // Return the unhandled state
             *command_id = id_unhandled;
 #endif
@@ -350,11 +367,21 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
 #endif
 #if defined(VIALRGB_ENABLE)
             vialrgb_get_value(data, length);
+<<<<<<< HEAD
+=======
+#endif
+#if defined(VIA_QMK_RGB_MATRIX_ENABLE)
+            via_qmk_rgb_matrix_get_value(command_data);
+>>>>>>> f71ee6074f1021dea83d0ee9931f08d60f38c806
 #endif
 #if defined(VIA_CUSTOM_LIGHTING_ENABLE)
             raw_hid_receive_kb(data, length);
 #endif
+<<<<<<< HEAD
 #if !defined(VIA_QMK_BACKLIGHT_ENABLE) && !defined(VIA_QMK_RGBLIGHT_ENABLE) && !defined(VIALRGB_ENABLE) && !defined(VIA_CUSTOM_LIGHTING_ENABLE)
+=======
+#if !defined(VIA_QMK_BACKLIGHT_ENABLE) && !defined(VIA_QMK_RGBLIGHT_ENABLE) && !defined(VIALRGB_ENABLE) && !defined(VIA_CUSTOM_LIGHTING_ENABLE) && !defined(VIA_QMK_RGB_MATRIX_ENABLE)
+>>>>>>> f71ee6074f1021dea83d0ee9931f08d60f38c806
             // Return the unhandled state
             *command_id = id_unhandled;
 #endif
@@ -369,11 +396,21 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
 #endif
 #if defined(VIALRGB_ENABLE)
             vialrgb_save(data, length);
+<<<<<<< HEAD
+=======
+#endif
+#if defined(VIA_QMK_RGB_MATRIX_ENABLE)
+            eeconfig_update_rgb_matrix();
+>>>>>>> f71ee6074f1021dea83d0ee9931f08d60f38c806
 #endif
 #if defined(VIA_CUSTOM_LIGHTING_ENABLE)
             raw_hid_receive_kb(data, length);
 #endif
+<<<<<<< HEAD
 #if !defined(VIA_QMK_BACKLIGHT_ENABLE) && !defined(VIA_QMK_RGBLIGHT_ENABLE) && !defined(VIALRGB_ENABLE) && !defined(VIA_CUSTOM_LIGHTING_ENABLE)
+=======
+#if !defined(VIA_QMK_BACKLIGHT_ENABLE) && !defined(VIA_QMK_RGBLIGHT_ENABLE) && !defined(VIALRGB_ENABLE) && !defined(VIA_CUSTOM_LIGHTING_ENABLE) && !defined(VIA_QMK_RGB_MATRIX_ENABLE)
+>>>>>>> f71ee6074f1021dea83d0ee9931f08d60f38c806
             // Return the unhandled state
             *command_id = id_unhandled;
 #endif

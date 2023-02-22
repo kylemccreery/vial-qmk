@@ -5,6 +5,7 @@
 
 #include "config_common.h"
 
+<<<<<<< HEAD
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x6D77 // mw = "MechWild"
 #define PRODUCT_ID      0x170F
@@ -12,10 +13,13 @@
 #define MANUFACTURER    MechWild
 #define PRODUCT         PuckBuddy
 
+=======
+>>>>>>> f71ee6074f1021dea83d0ee9931f08d60f38c806
 /* key matrix size */
 #define MATRIX_ROWS 4
 #define MATRIX_COLS 4
 
+<<<<<<< HEAD
 #ifdef UF2_BUILD
 #define EXTERNAL_EEPROM_BYTE_COUNT 2048
 #define EXTERNAL_EEPROM_PAGE_SIZE 128
@@ -34,6 +38,8 @@
     }
 
 
+=======
+>>>>>>> f71ee6074f1021dea83d0ee9931f08d60f38c806
 /* Define custom font */
 #define OLED_FONT_H "keyboards/mechwild/puckbuddy/glcdfont.c"
 
@@ -51,7 +57,10 @@
  * defining it this way allows us to easily modify it with DYNAMIC_TAPPING_TERM_ENABLE
  */
 #define TAPPING_TERM 0
+<<<<<<< HEAD
 #define CIRQUE_PINNACLE_ATTENUATION ADC_ATTENUATE_2X
+=======
+>>>>>>> f71ee6074f1021dea83d0ee9931f08d60f38c806
 
 /*
  * Keyboard Matrix Assignments

@@ -1,5 +1,9 @@
 # MCU name
 MCU = STM32F401
+<<<<<<< HEAD
+=======
+BOARD = BLACKPILL_STM32_F401
+>>>>>>> f71ee6074f1021dea83d0ee9931f08d60f38c806
 
 # Bootloader selection
 BOOTLOADER = stm32-dfu

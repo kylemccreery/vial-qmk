@@ -98,7 +98,11 @@ void action_exec(keyevent_t event) {
     keyrecord_t record = {.event = event};
 
 #ifndef NO_ACTION_ONESHOT
+<<<<<<< HEAD
     if (!keymap_config.oneshot_disable) {
+=======
+    if (keymap_config.oneshot_enable) {
+>>>>>>> f71ee6074f1021dea83d0ee9931f08d60f38c806
 if (QS_oneshot_timeout > 0) {
         if (has_oneshot_layer_timed_out()) {
             clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
@@ -590,7 +594,10 @@ if (QS_oneshot_tap_toggle > 1) {
                                 set_oneshot_layer(action.layer_tap.val, ONESHOT_START);
                             }
                         } else {
+<<<<<<< HEAD
                             add_mods(get_oneshot_locked_mods());
+=======
+>>>>>>> f71ee6074f1021dea83d0ee9931f08d60f38c806
                             if (tap_count >= QS_oneshot_tap_toggle) {
                                 reset_oneshot_layer();
                                 clear_oneshot_locked_mods();
@@ -804,7 +811,7 @@ __attribute__((weak)) void register_code(uint8_t code) {
 #    endif
         add_key(KC_CAPS_LOCK);
         send_keyboard_report();
-        wait_ms(100);
+        wait_ms(TAP_HOLD_CAPS_DELAY);
         del_key(KC_CAPS_LOCK);
         send_keyboard_report();
     }
@@ -1049,16 +1056,11 @@ void clear_keyboard_but_mods_and_keys() {
  *
  * FIXME: Needs documentation.
  */
-bool is_tap_key(keypos_t key) {
-    action_t action = layer_switch_get_action(key);
-    return is_tap_action(action);
-}
-
-/** \brief Utilities for actions. (FIXME: Needs better description)
- *
- * FIXME: Needs documentation.
- */
 bool is_tap_record(keyrecord_t *record) {
+    if (IS_NOEVENT(record->event)) {
+        return false;
+    }
+
 #ifdef COMBO_ENABLE
     action_t action;
     if (record->keycode) {

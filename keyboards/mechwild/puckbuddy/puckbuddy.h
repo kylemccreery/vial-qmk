@@ -19,7 +19,12 @@
     k00, k01, k02, k03,      k05,\
     k10,                     k15,\
     k20,                     k25,\
+<<<<<<< HEAD
     k30, k31, k32, k33, k34, k35 \
+=======
+    k30,                     k35,\
+         k31, k32, k33, k34      \
+>>>>>>> f71ee6074f1021dea83d0ee9931f08d60f38c806
 ) { \
     { k00, k01, k05, k31 }, \
     { k10, k02, k15, k32 }, \
@@ -27,8 +32,11 @@
     { k30, ___, k35, k34 }  \
 }
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> f71ee6074f1021dea83d0ee9931f08d60f38c806
 typedef union {
     uint32_t raw;
     struct {
@@ -41,7 +49,11 @@ extern keyboard_config_t keyboard_config;
 extern uint16_t          dpi_array[];
 
 enum keyboard_keycodes {
+<<<<<<< HEAD
 #ifdef VIAL_ENABLE
+=======
+#ifdef VIA_ENABLE
+>>>>>>> f71ee6074f1021dea83d0ee9931f08d60f38c806
     DPI_UP = USER00,
 #else
     DPI_UP = SAFE_RANGE,

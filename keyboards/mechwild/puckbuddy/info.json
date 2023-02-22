@@ -1,7 +1,19 @@
 {
+<<<<<<< HEAD
     "keyboard_name": "MechWild PuckBuddy",
     "url": "mechwild.com",
     "maintainer": "Kyle McCreery",
+=======
+    "keyboard_name": "PuckBuddy",
+    "manufacturer": "MechWild",
+    "url": "mechwild.com",
+    "maintainer": "kylemccreery",
+    "usb": {
+        "vid": "0x6D77",
+        "pid": "0x170F",
+        "device_version": "1.0.0"
+    },
+>>>>>>> f71ee6074f1021dea83d0ee9931f08d60f38c806
     "layouts": {
         "LAYOUT": {
             "layout": [
